@@ -1,0 +1,76 @@
+﻿@model IEnumerable<FileSharing.Models.UploadViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    var imagesContentType = new[] { "image/jpeg", "image/png", "image/jpg" };
+}
+<h1 class="text-lg-center"> My Uploads</h1>
+<br />
+<div class="row justify-content-md-center">
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New</a>
+    </p>
+    <table class="table" >
+        <thead>
+            <tr>
+                <th>
+                    Privew
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FileName)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Size)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UploadDate)
+                </th>
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ContentType)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (imagesContentType.Contains(item.ContentType))
+                        @*@if(item.ContentType == "image/png")*@
+                        {
+                            <img src="/Uploads/@item.FileName" width="150" height="100" class="img-thumbnail" alt="Alternate Text" />
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OriginalFileName)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Size)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadDate)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContentType)
+                    </td>
+
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { Id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        @*<a asp-action="Delete" asp-controller="Uploads" asp-route-id="@item.Id" class="btn btn-primary">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
